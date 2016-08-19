@@ -8,12 +8,6 @@
  */
 class Database
 {
-
-    private static $dbName = 'androidmastermind';
-    private static $dbHost = 'localhost';
-    private static $dbUsername = 'kevynashinski';
-    private static $dbUserPassword = 'elegant';
-
     private static $cont = null;
 
     public function __construct()
@@ -22,10 +16,12 @@ class Database
 
     public static function connect()
     {
+        require_once 'config.php';
+
         // One connection through whole application
         if (null == self::$cont) {
             try {
-                self::$cont = new PDO("mysql:host=" . self::$dbHost . ";" . "dbname=" . self::$dbName, self::$dbUsername, self::$dbUserPassword);
+                self::$cont = new PDO("mysql:host=" . HOST . ";" . "dbname=" . DATABASE, UNAME, PASS);
                 self::$cont->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 die($e->getMessage());
@@ -40,5 +36,3 @@ class Database
     }
 
 }
-
-?>
